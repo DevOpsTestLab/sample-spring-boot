@@ -14,7 +14,9 @@ pipeline {
                 docker { image 'gradle' }
             }
             steps {
-                sh 'chmod +x gradlew && ./gradlew sonarqube'
+                withSonarQubeEnv("SonarCloud") {
+                    sh 'chmod +x gradlew && ./gradlew sonarqube'
+                }
             }
         }
         stage('docker build') {

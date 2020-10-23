@@ -41,4 +41,10 @@
     - used the "./gradlew sonarqube" command
 - pushed the changes to GitHub and tested the update pipeline
 - after testing the pipeline, I realized I had the wrong docker image and updated that and made sure the gradlew command had necessary permissions
+- the pipeline failed again this time saying that "Failed to check if project 'AaronDownward_sample-spring-boot' is bound"
+    - I believe this is because I forgot to give it the appropriate SonarQube environment, so I update Jenkinsfile to try again
+
+# Task 4: Setup docker build and docker push
+
+
 
