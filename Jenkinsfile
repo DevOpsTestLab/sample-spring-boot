@@ -15,8 +15,8 @@ pipeline {
             agent {
                 docker { image 'busybox' }
             }
-            steps {
-                sh 'echo sonarqube'
+            withSonarQubeEnv() { 
+                sh './gradlew sonarqube'
             }
         }
         stage('docker build') {
