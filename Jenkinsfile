@@ -23,8 +23,8 @@ pipeline {
             agent {
                 docker { image 'busybox' }
             }
-            steps {
-                sh 'echo docker build dev'
+            steps{
+                sh 'docker build -t mattbecker5/sample-spring-boot'
             }
         }
         stage('docker push') {
@@ -32,7 +32,15 @@ pipeline {
                 docker { image 'busybox' }
             }
             steps {
-                sh 'echo docker push'
+                script {
+                   docker.withTool('docker') {
+                        repoId = "mattbecker5/sample-spring-boot"
+                        image = docker.build(repoId)
+                        docker.withRegistry("https://registry.hub.docker.com", "dockerlogin") {
+                            image.push()
+                        }
+                    }
+                }
             }
         }
         stage('app deploy') {
