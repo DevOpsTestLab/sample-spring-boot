@@ -24,7 +24,9 @@ pipeline {
                 docker { image 'gradle' }
             }
             steps {
-                docker.build('aarondownward/sample-spring-boot')
+                script {
+                    docker.build('aarondownward/sample-spring-boot')
+                }
             }
         }
         stage('docker push') {
