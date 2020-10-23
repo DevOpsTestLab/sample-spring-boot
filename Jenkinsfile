@@ -27,6 +27,7 @@ pipeline {
                 docker.withTool('docker') {
                     repoId = "aarondownward/sample-spring-boot"
                     image = docker.build(repoId)
+                }
             }
         }
         stage('docker push') {
