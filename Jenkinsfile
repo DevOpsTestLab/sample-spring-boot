@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    sonarqube {
+        properties {
+            property "sonar.projectKey", "mattbecker5_jenkins"
+            property "sonar.organization", "mattbecker5"
+            property "sonar.host.url", "https://sonarcloud.io"
+        }
+    }
+
     stages {
 
         stage('build') {
