@@ -10,6 +10,6 @@ ENV APP_LOC="/usr/src/app"
 
 WORKDIR $APP_LOC
 
-COPY build/libs/app.jar $APP_LOC/app.jar
+COPY build/libs/spring-boot-0.0.1-SNAPSHOT.jar $APP_LOC/app.jar
 
 ENTRYPOINT ["java","-jar","app.jar"]

@@ -45,6 +45,12 @@
     - I believe this is because I forgot to give it the appropriate SonarQube environment, so I update Jenkinsfile to try again
 
 # Task 4: Setup docker build and docker push
+- while waiting for the pipeline to run I installed Gradle to test building the image locally
+- After running my own Gradle build, I looked at the generated jar file and recognized that the name in the COPY step of the Dockerfile didn't match, so I fixed that
+- I'm not too familiar with docker pipeline approach and all it entails
+    - I started editing the Jenkinsfile in the Docker build step
+        - added a simple docker build command
+        - wasn't sure if the image would include the previously build jar file so I commented out the longer sonar stage for testing
 
 
 

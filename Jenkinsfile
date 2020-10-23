@@ -9,22 +9,22 @@ pipeline {
                 sh 'chmod +x gradlew && ./gradlew build'
             }
         }
-        stage('sonarqube') {
+        // stage('sonarqube') {
+        //     agent {
+        //         docker { image 'gradle' }
+        //     }
+        //     steps {
+        //         withSonarQubeEnv("SonarCloud") {
+        //             sh 'chmod +x gradlew && ./gradlew sonarqube'
+        //         }
+        //     }
+        // }
+        stage('docker build') {
             agent {
                 docker { image 'gradle' }
             }
             steps {
-                withSonarQubeEnv("SonarCloud") {
-                    sh 'chmod +x gradlew && ./gradlew sonarqube'
-                }
-            }
-        }
-        stage('docker build') {
-            agent {
-                docker { image 'busybox' }
-            }
-            steps {
-                sh 'echo docker build'
+                sh 'docker build -t aarondownward/sample-spring-boot .'
             }
         }
         stage('docker push') {
