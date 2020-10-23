@@ -2,6 +2,9 @@ pipeline {
     agent none
     stages {
         stage('test') {
+            agent {
+                any
+            }
             steps {
                 sh 'start test'
             }
