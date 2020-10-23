@@ -13,7 +13,7 @@ pipeline {
         }
         stage('sonarqube') {
             agent {
-                docker { image 'busybox' }
+                docker { image 'gradle' }
             }
             steps { 
                 sh 'chmod +x gradlew && ./gradlew sonarqube'
