@@ -38,3 +38,7 @@
         - added the SonarQube server detail in the Jenkins configuration
 - I then edited the Jenkinsfile with the specified stage
     - followed docker pipeline approach used in previous stages
+    - used the "./gradlew sonarqube" command
+- pushed the changes to GitHub and tested the update pipeline
+- after testing the pipeline, I realized I had the wrong docker image and updated that and made sure the gradlew command had necessary permissions
+
