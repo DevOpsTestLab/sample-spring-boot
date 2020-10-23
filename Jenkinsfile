@@ -1,3 +1,4 @@
+def dockerContainer
 pipeline {
     agent none
     stages {
@@ -21,11 +22,11 @@ pipeline {
         // }
         stage('docker build') {
             agent {
-                docker { image 'gradle' }
+                docker { image 'docker' }
             }
             steps {
                 script {
-                    docker.build('aarondownward/sample-spring-boot')
+                    dockerContainer = docker.build 'aarondownward/sample-spring-boot' 
                 }
             }
         }
@@ -35,6 +36,11 @@ pipeline {
             }
             steps {
                 sh 'echo docker push'
+                // script {
+                //     docker.withRegistry("https://registry.hub.docker.com", "dockerhub-creds") {
+                //         dockerContainer.push()
+                //     }
+                // }
             }
         }
         stage('app deploy') {
