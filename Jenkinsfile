@@ -16,22 +16,38 @@ pipeline {
             steps {
                 git url: 'https://github.com/re-blank/sample-spring-boot/', branch: 'ld_fix'
                 sh 'chmod +x gradlew && ./gradlew build'
+                stash name: 'build', includes: '*'
             }
         }
         stage('sonarqube') {
             agent {
-                docker { image 'busybox' }
+                docker { image 'gradle' }
             }
             steps {
-                sh './gradlew sonarqube '
+                unstash 'build' 
+                sh 'pwd'
+                withSonarQubeEnv('SonarCloud')
+                {
+                    sh './gradlew sonarqube '
+                }
+                
             }
         }
-        stage('docker build') {
+        stage('docker build and push') {
             agent {
-                docker { image 'busybox' }
+                docker { image 'docker' }
             }
             steps {
-                sh 'echo docker build'
+                unstash 'build'
+                script {
+                    docker.withTool('docker') {
+                        repoId = "reblank/spring-app"
+                        image = docker.build(repoId)
+                        docker.withRegistry("", "DOCKER_HUB_TOKEN") {
+                            image.push()
+                        }
+                    }
+                }
             }
         }
         stage('docker push') {
@@ -39,15 +55,15 @@ pipeline {
                 docker { image 'busybox' }
             }
             steps {
-                sh 'echo docker push'
+                sh 'echo should I keep this?'
             }
         }
         stage('app deploy') {
             agent {
-                docker { image 'busybox' }
+                docker { image 'bitnami/kubectl' }
             }
             steps {
-                sh 'echo kube deploy'
+                sh 'echo kube'
             }
         }
     }
