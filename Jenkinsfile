@@ -48,6 +48,7 @@ pipeline {
                         }
                     }
                 }
+                stash name: 'docker', includes: '/var/lib/docker'
             }
         }
         stage('docker push') {
