@@ -25,9 +25,10 @@ pipeline {
                 docker { image 'docker' }
             }
             steps {
-                script {
-                    dockerContainer = docker.build 'aarondownward/sample-spring-boot' 
-                }
+                // script {
+                //     dockerContainer = docker.build('aarondownward/sample-spring-boot')
+                // }
+                sh 'docker build -t aarondownward/sample-spring-boot .'
             }
         }
         stage('docker push') {
