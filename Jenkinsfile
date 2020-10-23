@@ -14,7 +14,7 @@ pipeline {
                 docker { image 'gradle' }
             }
             steps {
-                git url: 'https://github.com/re-blank/sample-spring-boot/' branch: 'ld_fix'
+                git url: 'https://github.com/re-blank/sample-spring-boot/', branch: 'ld_fix'
                 sh 'chmod +x gradlew && ./gradlew build'
             }
         }
