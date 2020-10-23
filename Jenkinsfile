@@ -25,23 +25,22 @@ pipeline {
                 docker { image 'docker' }
             }
             steps {
-                // script {
-                //     dockerContainer = docker.build('aarondownward/sample-spring-boot')
-                // }
-                sh 'docker build -t aarondownward/sample-spring-boot .'
+                script {
+                    dockerContainer = docker.build('aarondownward/sample-spring-boot')
+                }
             }
         }
         stage('docker push') {
             agent {
-                docker { image 'busybox' }
+                docker { image 'docker' }
             }
             steps {
                 sh 'echo docker push'
-                // script {
-                //     docker.withRegistry("https://registry.hub.docker.com", "dockerhub-creds") {
-                //         dockerContainer.push()
-                //     }
-                // }
+                script {
+                    docker.withRegistry("https://registry.hub.docker.com", "dockerhub-creds") {
+                        dockerContainer.push()
+                    }
+                }
             }
         }
         stage('app deploy') {
