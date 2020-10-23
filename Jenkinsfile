@@ -10,16 +10,16 @@ pipeline {
                 sh 'chmod +x gradlew && ./gradlew build'
             }
         }
-        // stage('sonarqube') {
-        //     agent {
-        //         docker { image 'gradle' }
-        //     }
-        //     steps {
-        //         withSonarQubeEnv("SonarCloud") {
-        //             sh 'chmod +x gradlew && ./gradlew sonarqube'
-        //         }
-        //     }
-        // }
+        stage('sonarqube') {
+            agent {
+                docker { image 'gradle' }
+            }
+            steps {
+                withSonarQubeEnv("SonarCloud") {
+                    sh 'chmod +x gradlew && ./gradlew sonarqube'
+                }
+            }
+        }
         stage('docker build') {
             agent {
                 docker { image 'docker' }
