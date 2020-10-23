@@ -1,6 +1,9 @@
 pipeline {
-    agent none
+    agent any
+
+    //feature
     stages {
+        
         stage('build') {
             agent {
                 docker { image 'gradle' }
@@ -11,18 +14,18 @@ pipeline {
         }
         stage('sonarqube') {
             agent {
-                docker { image 'busybox' }
+                docker { image 'gradle' }
             }
-            steps {
-                sh 'echo sonarqube'
+            steps { 
+                sh 'chmod +x gradlew && ./gradlew sonarqube'
             }
         }
         stage('docker build') {
             agent {
                 docker { image 'busybox' }
             }
-            steps {
-                sh 'echo docker build'
+            steps{
+                sh 'docker build -t mattbecker5/sample-spring-boot'
             }
         }
         stage('docker push') {
@@ -30,7 +33,15 @@ pipeline {
                 docker { image 'busybox' }
             }
             steps {
-                sh 'echo docker push'
+                script {
+                   docker.withTool('docker') {
+                        repoId = "mattbecker5/sample-spring-boot"
+                        image = docker.build(repoId)
+                        docker.withRegistry("https://registry.hub.docker.com", "dockerlogin") {
+                            image.push()
+                        }
+                    }
+                }
             }
         }
         stage('app deploy') {
