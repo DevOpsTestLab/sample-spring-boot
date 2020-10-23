@@ -22,7 +22,7 @@ pipeline {
                 docker { image 'busybox' }
             }
             steps {
-                sh 'echo docker build'
+                sh 'echo docker build dev'
             }
         }
         stage('docker push') {
