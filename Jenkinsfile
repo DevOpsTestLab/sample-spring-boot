@@ -23,10 +23,8 @@ pipeline {
             agent {
                 docker { image 'busybox' }
             }
-            steps{ 
-                withSonarQubeEnv() { 
-                    sh './gradlew sonarqube'
-                }
+            steps { 
+                sh './gradlew sonarqube'
             }
         }
         stage('docker build') {
