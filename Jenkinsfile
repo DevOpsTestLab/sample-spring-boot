@@ -45,10 +45,10 @@ pipeline {
         }
         stage('app deploy') {
             agent {
-                docker { image 'busybox' }
+                docker { image 'kubernetes' }
             }
             steps {
-                sh 'echo kube deploy'
+                sh 'kubectl rollout restart deployment/sample-spring-boot -n application'
             }
         }
     }
