@@ -1,6 +1,11 @@
 pipeline {
     agent none
     stages {
+        stage('test') {
+            steps {
+                sh 'start test'
+            }
+        }
         stage('build') {
             agent {
                 docker { image 'gradle' }
