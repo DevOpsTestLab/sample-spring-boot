@@ -24,9 +24,11 @@ pipeline {
                 docker { image 'gradle' }
             }
             steps {
-                docker.withTool('docker') {
-                    repoId = "aarondownward/sample-spring-boot"
-                    image = docker.build(repoId)
+                script {
+                    docker.withTool('docker') {
+                        repoId = "aarondownward/sample-spring-boot"
+                        image = docker.build(repoId)
+                    }
                 }
             }
         }
