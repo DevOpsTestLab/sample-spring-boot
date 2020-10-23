@@ -3,6 +3,12 @@ pipeline {
 
     stages {
 
+        stage('Pull') {
+            steps {
+                git url: "https://github.com/mattbecker5/sample-spring-boot.git", branch: "dev"
+            }
+        }
+
         stage('Test') {
             steps {
                 sh 'echo test'
