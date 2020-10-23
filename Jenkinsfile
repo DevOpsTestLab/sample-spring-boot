@@ -3,10 +3,10 @@ pipeline {
     stages {
         stage('test') {
             agent {
-                any
+                label 'master'
             }
             steps {
-                sh 'start test'
+                sh 'echo start test'
             }
         }
         stage('build') {
