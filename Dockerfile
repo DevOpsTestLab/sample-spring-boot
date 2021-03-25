@@ -1,15 +1,11 @@
 FROM openjdk:8u212-alpine
 
-LABEL name "Springboot base image" 
+LABEL name "sample-spring-boot" 
 LABEL maintainer "Cognizant"
 LABEL version=1.0
 
-USER root
+ARG JAR_FILE=build/libs/*.jar
 
-ENV APP_LOC="/usr/src/app"
+COPY ${JAR_FILE} app.jar
 
-WORKDIR $APP_LOC
-
-COPY build/libs/app.jar $APP_LOC/app.jar
-
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]

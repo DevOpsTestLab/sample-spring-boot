@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: springboot-sample
-          image: <your-registry>/<your-image>:<your-tag># Docker container with our node app
+          image: arigelasreeram/samplerepo:latest # Docker container with our node app
           ports:
             - containerPort: 8080
 ---
